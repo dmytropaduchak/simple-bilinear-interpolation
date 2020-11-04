@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/dmytropaduchak/simple-bilinear-interpolation.svg?branch=master)](https://travis-ci.org/dmytropaduchak/simple-bilinear-interpolation)
 [![Coverage Status](https://coveralls.io/repos/github/dmytropaduchak/simple-bilinear-interpolation/badge.svg?branch=master)](https://coveralls.io/github/dmytropaduchak/simple-bilinear-interpolation?branch=master)
-[![NPM Version](https://badge.fury.io/js/simple-bilinear-interpolation.svg)](http://badge.fury.io/js/simple-bilinear-interpolation?type=dev)  
+[![NPM Version](https://badge.fury.io/js/simple-bilinear-interpolation.svg)](http://badge.fury.io/js/simple-bilinear-interpolation?type=dev)
+[![Dependecy Status](https://david-dm.org/tterb/Hyde.svg)](https://github.com/dmytropaduchak/simple-bilinear-interpolation)  
+[![DEV Dependency Status](https://david-dm.org/tterb/Hyde/dev-status.svg)](https://github.com/dmytropaduchak/simple-bilinear-interpolation?type=dev)  
 
 # Simple Bilinear Interpolation
 
