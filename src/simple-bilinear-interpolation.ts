@@ -1,4 +1,4 @@
-import { LinearInterpolationPoint, linerInterpolation } from 'simple-linear-interpolation';
+import { linearInterpolation, LinearInterpolationPoint } from 'simple-linear-interpolation';
 
 import { BilinearInterpolationFunction, BilinearInterpolationPoint } from './simple-bilinear-interpolation.definition';
 
@@ -31,12 +31,12 @@ export function bilinearInterpolation(points: BilinearInterpolationPoint[]): Bil
 
       if (x1.x === x2.x) {
         const data = points.filter((i) => i.x === x1.x).map(({ y: x, z: y }): LinearInterpolationPoint => ({ x, y }));
-        return linerInterpolation(data)({ x: params.y });
+        return linearInterpolation(data)({ x: params.y });
       }
 
       if (y1.y === y2.y) {
         const data = points.filter((i) => i.y === y1.y).map(({ x, z: y }): LinearInterpolationPoint => ({ x, y }));
-        return linerInterpolation(data)({ x: params.x });
+        return linearInterpolation(data)({ x: params.x });
       }
 
       const z11 = points.find((i) => i.x === x1.x && i.y === y1.y);
@@ -87,7 +87,7 @@ export function bilinearInterpolation(points: BilinearInterpolationPoint[]): Bil
         x: (((coordinate - curr[0]) * (minPoints[i][2] - curr[2])) / (minPoints[i][0] - curr[0]) || 0) + curr[2],
         y: curr[1],
       }));
-      return linerInterpolation(data)({ x: params.z });
+      return linearInterpolation(data)({ x: params.z });
     }
 
     throw new Error("Can't calculate bilinear interpolation");
