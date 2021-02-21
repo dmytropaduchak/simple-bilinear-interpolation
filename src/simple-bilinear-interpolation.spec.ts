@@ -52,49 +52,89 @@ describe('src/simple-bilinear-interpolation.ts', () => {
 
   it('should throw extrapolation error if incorrect value of `x` variable, calculation by `x`, `y`', () => {
     expect(() => {
-      bilinearInterpolation(points)({ x: -1.5, y: 1 });
+      const params = { x: -1.5, y: 1 };
+      const calculator = bilinearInterpolation(points);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation for x: '-1.5'");
   });
 
   it('should throw extrapolation error if incorrect value of `x` variable, calculation by `x`, `z`', () => {
     expect(() => {
-      bilinearInterpolation(points)({ x: -1.5, z: 16.5 });
+      const params = { x: -1.5, z: 16.5 };
+      const calculator = bilinearInterpolation(points);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation");
   });
 
   it('should throw extrapolation error if incorrect value of `y` variable, calculation by `y`, `x`', () => {
     expect(() => {
-      bilinearInterpolation(points)({ x: 1, y: -1.5 });
+      const params = { x: 1, y: -1.5 };
+      const calculator = bilinearInterpolation(points);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation for y: '-1.5'");
   });
 
   it('should throw extrapolation error if incorrect value of `y` variable, calculation by `y`, `z`', () => {
     expect(() => {
-      bilinearInterpolation(points)({ y: -1.5, z: 16.5 });
+      const params = { y: -1.5, z: 16.5 };
+      const calculator = bilinearInterpolation(points);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation");
   });
 
   it('should throw extrapolation error if incorrect matrix data', () => {
     expect(() => {
-      bilinearInterpolation([{ x: 1, y: 1, z: 11 }])({ x: 1.5, y: 1.5 });
+      const params = { x: 1.5, y: 1.5 };
+      const calculator = bilinearInterpolation([{ x: 1, y: 1, z: 11 }]);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation, please provide more points");
   });
 
   it('should throw extrapolation error if if incorrect value of `x` or `y`', () => {
     expect(() => {
-      bilinearInterpolation(points)({ a: 1, z: 11 } as any);
+      const params = { a: 1, z: 11 } as any;
+      const calculator = bilinearInterpolation(points);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation");
   });
 
   it('should throw extrapolation error if if incorrect value of `x` or `y` and `z`', () => {
     expect(() => {
-      bilinearInterpolation(points)({ a: 1, b: 2 } as any);
+      const params = { a: 1, b: 2 } as any;
+      const calculator = bilinearInterpolation(points);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation");
   });
 
   it('should throw extrapolation error if incorrect matrix value', () => {
     expect(() => {
-      bilinearInterpolation([{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }] as any)({ x: 1.5, z: 16.5 });
+      const params = { x: 1.5, z: 16.5 };
+      const calculator = bilinearInterpolation([{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }] as any);
+      calculator(params);
     }).toThrowError("Can't calculate bilinear interpolation");
+  });
+
+  describe('zero calculation', () => {
+    it('should do right extrapolation `x` variable', () => {
+      const params = { x: 0, y: 0 };
+      const calculator = bilinearInterpolation([
+        { x: -1, y: -1, z: -1 },
+        { x: 1, y: -1, z: 1 },
+        { x: -1, y: 1, z: 1 },
+        { x: 1, y: 1, z: -1 },
+      ]);
+      expect(calculator(params)).toEqual(0);
+    });
+
+    it('should do right extrapolation `x` variable by parameters equal matrix data', () => {
+      const params = { x: 0, y: 0 };
+      const calculator = bilinearInterpolation([
+        { x: 1, y: 1, z: 3 },
+        { x: 0, y: 1, z: 2 },
+        { x: 1, y: 0, z: 1 },
+        { x: 0, y: 0, z: 0 },
+      ]);
+      expect(calculator(params)).toEqual(0);
+    });
   });
 });

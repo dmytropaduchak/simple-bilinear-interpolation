@@ -4,6 +4,8 @@ import { BilinearInterpolationFunction, BilinearInterpolationPoint } from './sim
 
 const MATRIX_LENGTH = 4;
 
+const isZero = (num: number): boolean => num === 0;
+
 /**
  * Implementation of bilinear interpolation
  * @param {array} points interpolation matrix data
@@ -69,7 +71,7 @@ export function bilinearInterpolation(points: BilinearInterpolationPoint[]): Bil
         coordinates = points.sort((a, b) => a.y - b.y).map((i) => [i.y, i.x, i.z]);
       }
 
-      if (!coordinate) {
+      if (!coordinate && !isZero(coordinate)) {
         throw new Error("Can't calculate bilinear interpolation");
       }
 
